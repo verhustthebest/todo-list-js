@@ -1,66 +1,102 @@
-// Slect Element 
+// SÉLECTION DES ÉLÉMENTS
+
 const input = document.getElementById("input_task")
 const button = document.getElementById("Btn_add")
 const list = document.getElementById("taskList")
+ 
 
+// TABLEAU DES TÂCHES:  tâche devient un objet
+let tasks = JSON.parse(localStorage.getItem("tasks")) || []
 
-// creation Array data 
-let tasks = []
-
-// Load tasks saved (LocalStorage)
-let savedTasks = localStorage.getItem("tasks")
-
-if (savedTasks){
-    tasks = JSON.parse(savedTasks)
+//  SAUVEGARDE LOCALSTORAGE
+ 
+function saveTasks(){
+localStorage.setItem("tasks", JSON.stringify(tasks))
 }
 
+// AFFICHAGE DES TÂCHES
 
-//Affichage tasks
-function renderTasks(){
+ function renderTasks(){
 
-    list.innerHTML = "" //clearn list 
+list.innerHTML = ""
 
-    tasks.forEach(function(task){
+tasks.forEach(function(task, index){
 
-        const li = document.createElement("li")
+const li = document.createElement("li")
 
-        const span = document.createElement("span")
-        span.textContent = task
+const span = document.createElement("span")
+span.textContent = task.text
 
-        const deleteBtn = document.createElement("button")
-        deleteBtn.textContent = "Supprimer"
-
-        li.appendChild(span)
-        li.appendChild(deleteBtn)
-
-        list.appendChild(li)
-
-        // supprimer tasks
-        deleteBtn.addEventListener("click", function(){
-            li.remove()
-        })
-
-        //Event : barrer tâche
-        span.addEventListener("click", function(){
-            span.classList.toggle("done")
-        })
-    })
+// appliquer style si terminé
+if(task.completed){
+span.classList.add("completed")
 }
 
-//Function for View tasks during dowloand 
+// bouton supprimer
+const deleteBtn = document.createElement("button")
+deleteBtn.textContent = "Supprimer"
+
+// EVENT SUPPRIMER
+deleteBtn.addEventListener("click", function(){
+
+// supprimer du tableau
+tasks.splice(index, 1)
+
+// sauvegarder
+saveTasks()
+
+// re-render
 renderTasks()
 
-//Added a new task
-button.addEventListener("click", function(){
+})
 
-    const taskText = input.value
+// EVENT COMPLETED
+span.addEventListener("click", function(){
 
-    if(taskText === "") return
-    tasks.push(taskText)
-//Persistance data of local
-    localStorage.setItem("tasks", JSON.stringify(tasks))
+// inverser état
+task.completed = !task.completed
 
-    renderTasks()
-    input.value = "" //Clear input after a new data
+// sauvegarder
+saveTasks()
+
+// re-render
+renderTasks()
 
 })
+
+// assemblage
+li.appendChild(span)
+li.appendChild(deleteBtn)
+
+list.appendChild(li)
+
+})
+
+}
+
+// AJOUT D’UNE TÂCHE 
+
+button.addEventListener("click", function(){
+
+const taskText = input.value.trim()
+
+if(taskText === "") return
+
+// ajouter objet (PRO)
+tasks.push({
+text: taskText,
+completed: false
+})
+
+saveTasks()
+renderTasks()
+
+input.value = ""
+input.focus() // UX 🔥
+
+})
+
+// ==========================
+// INITIALISATION
+// ==========================
+renderTasks()

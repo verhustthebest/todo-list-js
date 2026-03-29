@@ -5,21 +5,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style_todoL.css">
-    <title>Todo liste</title>
+    <title>Todo list</title>
 </head>
 
 <body>
-
-    <h1>Ma Todo Liste</h1>
-
+    <h1>My Todo Liste</h1>
     <input id="input_task" placeholder="Nouvelle tâche" autofocus>
+    <button id="Btn_add">Ajouter</button>  
 
-    <button id="Btn_add">Ajouter</button>
+    <div id="controls">
+        <p id="compter"></p>
 
-    <ol id="taskList"></ol>
-
+        <div id="filters">
+            <button id="all">Toutes</button>
+            <button id="active">Actives</button>
+            <button id="completed">Terminées</button>
+        </div>  
+        <button id="clearAll">Tout supprimer</button>      
+    </div> 
+    
+        <ol id="taskList"></ol>
     <script src="script.js"></script>
-
 </body>
-
 </html>

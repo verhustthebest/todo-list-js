@@ -1,3 +1,134 @@
+body{
+margin:0;
+font-family:Arial, sans-serif;
+background:linear-gradient(to right, #667eea, #764ba2);
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+height:100vh;
+color:white;
+}
+
+/* TITRE PRINCIPAL */
+
+h1{
+margin-bottom:20px;
+}
+
+ /* INPUT + BUTTON */
+
+ input{
+padding:12px;
+border:none;
+border-radius:8px;
+font-size:16px;
+width:300px;
+outline:none;
+margin-bottom:10px;
+}
+
+button{
+padding:12px 15px;
+border:none;
+border-radius:8px;
+background:#27ae60;
+color:white;
+font-size:16px;
+cursor:pointer;
+margin-bottom:20px;
+}
+
+button:hover{
+background:#219150;
+}
+
+/* LISTE  */
+
+#taskList{
+list-style:none;
+padding:0;
+width:300px;
+}
+
+/* ITEM  */
+
+li{
+background:white;
+color:black;
+padding:10px;
+margin-bottom:10px;
+border-radius:8px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+/* texte */
+li span{
+cursor:pointer;
+}
+
+/* tâche complétée */
+.completed{
+text-decoration:line-through;
+color:gray;
+}
+
+/* bouton supprimer */
+li button{
+background:#e74c3c;
+color:white;
+border:none;
+border-radius:5px;
+padding:5px 8px;
+cursor:pointer;
+}
+
+li button:hover{
+background:#e8e0df;
+}
+
+#controls{
+margin:20px;
+text-align:center;
+}
+
+#filters button{
+margin:5px;
+background:#3498db;
+}
+
+#filters button:hover{
+background:#2980b9;
+}
+
+#clearAll{
+background:#e74c3c;
+margin-top:10px;
+}
+
+#clearAll:hover{
+background:#c0392b;
+}
+
+
+/* RESPONSIVE  */
+
+@media (max-width:600px){
+
+input{
+width:90%;
+}
+
+#taskList{
+width:90%;
+}
+
+}
+
+/* ----------------------- */
+
 .done {
     text-decoration: line-through;
 }
