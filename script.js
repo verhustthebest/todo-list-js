@@ -1,102 +1,69 @@
 // SÉLECTION DES ÉLÉMENTS
+const input = document.getElementById("input_task");
+const button = document.getElementById("Btn_add");
+const list = document.getElementById("taskList");
+const btnclearAll = document.getElementById("btnclearAll");
 
-const input = document.getElementById("input_task")
-const button = document.getElementById("Btn_add")
-const list = document.getElementById("taskList")
- 
-
-// TABLEAU DES TÂCHES:  tâche devient un objet
-let tasks = JSON.parse(localStorage.getItem("tasks")) || []
-
-//  SAUVEGARDE LOCALSTORAGE
- 
-function saveTasks(){
-localStorage.setItem("tasks", JSON.stringify(tasks))
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+function saveTasks() {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
-// AFFICHAGE DES TÂCHES
+function renderTasks() {
+    list.innerHTML = "";
+    
+    tasks.forEach(function(task, index) {
+        const li = document.createElement("li");
 
- function renderTasks(){
+        // CORRECTION : Création du span pour le texte
+        const span = document.createElement("span");
+        span.textContent = task.text;
 
-list.innerHTML = ""
+        const deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "Supprimer";
+        
+        deleteBtn.addEventListener("click", function() {
+            tasks.splice(index, 1);
+            saveTasks(); // On sauvegarde après suppression
+            renderTasks(); // On rafraîchit la liste
+            input.focus();
+        });
 
-tasks.forEach(function(task, index){
-
-const li = document.createElement("li")
-
-const span = document.createElement("span")
-span.textContent = task.text
-
-// appliquer style si terminé
-if(task.completed){
-span.classList.add("completed")
+        li.appendChild(span);
+        li.appendChild(deleteBtn);
+        list.appendChild(li);
+    });
 }
 
-// bouton supprimer
-const deleteBtn = document.createElement("button")
-deleteBtn.textContent = "Supprimer"
+// AJOUT D’UNE TÂCHE
+button.addEventListener("click", function() {
+    const taskText = input.value.trim();
+    if (taskText === "") {
+        alert("Veuillez écrire une tâche s'il vous plaît..");
+        input.focus()
+        return;
+    }
+    tasks.push({
+        text: taskText, completed: false
+    });
+    
+    //Update & stockage
+    saveTasks();
+    renderTasks();
+    
+    input.value = "";
+    input.focus();
+});
 
-// EVENT SUPPRIMER
-deleteBtn.addEventListener("click", function(){
+// VIDER TOUT
+btnclearAll.onclick = function() {
+    if (confirm("Voulez-vous tout supprimer ?")) {
+        tasks = [];
+        saveTasks();
+        renderTasks();
+        input.focus();
+    }
+};
 
-// supprimer du tableau
-tasks.splice(index, 1)
-
-// sauvegarder
-saveTasks()
-
-// re-render
-renderTasks()
-
-})
-
-// EVENT COMPLETED
-span.addEventListener("click", function(){
-
-// inverser état
-task.completed = !task.completed
-
-// sauvegarder
-saveTasks()
-
-// re-render
-renderTasks()
-
-})
-
-// assemblage
-li.appendChild(span)
-li.appendChild(deleteBtn)
-
-list.appendChild(li)
-
-})
-
-}
-
-// AJOUT D’UNE TÂCHE 
-
-button.addEventListener("click", function(){
-
-const taskText = input.value.trim()
-
-if(taskText === "") return
-
-// ajouter objet (PRO)
-tasks.push({
-text: taskText,
-completed: false
-})
-
-saveTasks()
-renderTasks()
-
-input.value = ""
-input.focus() // UX 🔥
-
-})
-
-// ==========================
-// INITIALISATION
-// ==========================
-renderTasks()
+// INITIALISATION (Au chargement de la page)
+renderTasks();
