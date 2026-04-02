@@ -1,97 +1,89 @@
-body{
-    margin:0;
-    background:rgb(96, 101, 247);
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    min-height:100vh;
-    color:white;
-    padding: 20px 0;
+body {
+    background-color: #6065f7;  
+    color: white; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    height: 100vh;  
+    /* Empêche la page entière de défiler */
+    overflow: hidden; 
+    padding-top: 20px;
+}
+ 
+/*space de saisie*/
+#input_task {
+    padding: 10px;
+    width: 250px;
+    border-radius: 5px; 
+    margin-bottom: 10px;
 }
 
-h1{
-    margin-bottom:20px;
+/* Ajout & Supprimer Tout */
+button {
+    padding: 8px 15px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
 }
 
- /* INPUT + BUTTON */
- input{
-    padding:12px;
-    border:none;
-    border-radius:5px;
-    font-size:12px;
-    width:300px;
-    outline:none;
-    margin-bottom:10px;
+#Btn_add {
+    background-color: #dcdde1;
+    color: #c0392b;
+    margin-bottom: 10px;
 }
 
-button{
-    padding:9px 12px;
-    border-radius:5px;
-    background:#27ae60;
-    color:rgb(31, 1, 1);
-    font-size:13px;
-    font-weight: 600;
-    cursor:progress;
+#btnclearAll {
+    background-color: #ffffff;
+    color: #000000;
+    border: 2px solid black;
 }
 
-#ShowtasksSave{
-    background-color: aqua;
+/* Zonde de défilement */
+ol#taskList {
+    max-width: 450px;
+    margin-top: 20px;
+    padding: 15px;
+/* Liste 60% hauteur écran */
+    max-height: 60vh;  
+/* Activation le scroll vertical */
+    overflow-y: auto;     
+    
+    border-top: 3px solid rgba(38, 100, 2, 0.5); 
+    list-style: none;     /* Enlève les chiffres par défaut */
 }
 
-/* LISTE  */
-#taskList{
-    padding:0;
-    width:300px;
+/*Style en arrière plan liste de tâches */
+li {
+    background-color: rgba(203, 245, 239, 0.2);
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(5px); /* Effet de transparence moderne */
 }
 
-/*LISTE*/
-li{
-    background:rgb(179, 225, 254);
-    color:black;
-    padding:10px;
-    margin-bottom:10px;
-    border-radius:8px;
-    display:flex;
-    justify-content:space-between;
+/* space to text */
+li span {
+    flex: 1;
+    word-break: break-word;
+    margin-right: 10px;
+    font-size: 14px;
 }
 
-/* tâche complétée */
-.completed{
-    text-decoration:line-through;
-    color:gray;
+/*btn Editer & Supprimer */
+.edit-btn {
+    background-color: #f1c40f;
+    color: black;
+    margin-right: 5px;
+    font-size: 12px;
 }
 
-/* bouton supprimer */
-li button{
-    background:#fac8c2;
-    color:rgb(15, 0, 0);
-    border:none;
-    border-radius:5px;
-    padding:5px 8px;
-    cursor:pointer;
-}
-
-#controls{
-    margin:20px;
-    text-align:center;
-}
-
-#filters button{
-margin:5px;
-    background:#3498db;
-}
-
-#filters button:hover{
-    background:#2980b9;
-}
-
-/* RESPONSIVE  */
-@media (max-width:600px){
-    input{
-        width:90%;
-    }
-    #taskList{
-        width:90%;
-    }
+.delete-btn {
+    background-color: #2ecc71; /* Votre vert actuel */
+    color: black;
+    font-size: 12px;
 }
