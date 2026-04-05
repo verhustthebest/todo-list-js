@@ -2,7 +2,38 @@ const input = document.getElementById("input_task");
 const button = document.getElementById("Btn_add");
 const list = document.getElementById("taskList");
 const btnclearAll = document.getElementById("btnclearAll");
+const rech = document.getElementById("Input_rech"); // Barre - Recherche
+const No_view = document.getElementById("noview") //Si tâche non trouvée
 
+//Fonction recherche
+rech.addEventListener('input', (e) =>{
+    const rech = e.target.value.toLowerCase().trim();
+    const tasks = document.querySelectorAll('.task-item');
+    // Par défaut, Rien trouvé
+    let flag = false; 
+
+    tasks.forEach(task => {
+        const taskText = task.querySelector('.task-text').textContent.toLowerCase();
+
+        if (taskText.includes(rech)) {
+            task.style.display = 'flex';
+            //
+            flag = true; // On a trouvé........
+        } else {
+            task.style.display = 'none';
+        }
+    });
+
+    //si aucune tâche trouvée
+    if (!flag && rech !== "") {
+        noview.style.display = 'block'; // On montre le message
+    } else {
+        noview.style.display = 'none';  // On le cache
+    }
+});
+
+
+// Les données
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
 function saveTasks() {
@@ -14,11 +45,16 @@ function renderTasks() {
     list.innerHTML = "";
     
     tasks.forEach(function(task, index) {
-        const li = document.createElement("li");
+        const li = document.createElement("li"); 
+/*Classe "task-item" pour pouvoir manipuler l'élément via CSS 
+ et le retrouver facilement avec querySelectorAll dans la barre de recherche.*/
+li.classList.add("task-item");
 
-        // Texte de la tâche
+        ////Elément contenant le texte de la tâche
         const span = document.createElement("span");
-        span.textContent = task.text;
+        // ajout de cette classe pour sélecteur de la recherche
+        span.classList.add("task-text");
+        span.textContent = task.text; //Contenu du texte récupéré depuis l'object task 
 
         // Conteneur pour les boutons (pour un alignement parfait)
         const btnGroup = document.createElement("div");
@@ -41,10 +77,10 @@ function renderTasks() {
 
         // Bouton Supprimer
         const deleteBtn = document.createElement("button");
-        deleteBtn.textContent = "Supprimer";
         //La connexion du bouton 'Supprimer' crée avec le CSS
-        deleteBtn.classList.add("delete-btn");
+        deleteBtn.textContent = "Supprimer";
         // deleteBtn.className = "delete-btn";
+        deleteBtn.classList.add("delete-btn");
         
         deleteBtn.onclick = function() {
             tasks.splice(index, 1);

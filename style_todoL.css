@@ -14,9 +14,17 @@ body {
 /*space de saisie*/
 #input_task {
     padding: 10px;
-    width: 250px;
+    width: 350px;
     border-radius: 5px; 
     margin-bottom: 10px;
+} 
+
+#Input_rech {
+    padding: 8px;
+    width: 270px;
+    border-radius: 5px; 
+    margin-bottom: 5px;
+    outline: none;
 }
 
 /* Ajout & Supprimer Tout */
@@ -26,6 +34,16 @@ button {
     border: none;
     cursor: pointer;
     font-weight: bold;
+}
+
+#noview{
+    /* display: none;  */
+    text-align: center; 
+    color: rgb(75, 0, 0);
+    font-weight:800;
+    background-color: beige;
+    width: 25%;
+    border-radius: 7px;
 }
 
 #Btn_add {
@@ -41,7 +59,7 @@ button {
 }
 
 /* Zonde de défilement */
-ol#taskList {
+ul#taskList {
     max-width: 450px;
     margin-top: 20px;
     padding: 15px;
