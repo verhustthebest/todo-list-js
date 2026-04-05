@@ -12,10 +12,17 @@
     <h1>My Todo List</h1>
     <input id="input_task" placeholder="Nouvelle tâche" autofocus>
     <button id="Btn_add">Ajouter</button>  
-
-        <button id="btnclearAll">Tout Supprimer</button>   <br><br>  
+    <button id="btnclearAll">Tout Supprimer</button>   <br><br>  
     
-        <ol id="taskList"></ol>
+    <!-- Barre de recherche -->
+    <div class="search">
+        <input type="text" id="Input_rech" placeholder="Rechercher une tâche...">
+    </div>
+    
+        <ul id="taskList"></ul>
+        <h2 id="noview" style="display:none">
+            Aucune tâche trouvée ! désolé.
+        </h2>
     <script src="script.js"></script>
 </body>
 </html>
